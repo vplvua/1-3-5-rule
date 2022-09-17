@@ -1,0 +1,30 @@
+<div class="main">
+  <app-list-menu></app-list-menu>
+  <div class="row mt-3">
+    <div class="col col-sm-12">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="search">Search task:</span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Username"
+          aria-label="Username"
+          aria-describedby="search"
+          [(ngModel)]="filterString"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-sm-12">
+      <ul class="list-group">
+        <li
+          class="list-group-item list-group-flush"
+          *ngFor="let taskItem of tasks | allTasksFilter: this.filterString"
+        >
+          <app-task [taskItem]="taskItem"></app-task>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

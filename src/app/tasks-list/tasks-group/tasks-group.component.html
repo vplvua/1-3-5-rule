@@ -1,0 +1,36 @@
+<div class="main">
+  <app-list-menu></app-list-menu>
+  <div class="row mt-3">
+    <div class="col-sm-12">
+      <!-- <h3>Main Task</h3> -->
+      <p><mark>Main Task</mark></p>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let taskItem of mainTask">
+          <app-task [taskItem]="taskItem"></app-task>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-sm-12">
+      <!-- <h4>Important Tasks</h4> -->
+      <p><mark>Important Tasks</mark></p>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let taskItem of importantTasks">
+          <app-task [taskItem]="taskItem"></app-task>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-sm-12">
+      <!-- <h4>Small Tasks</h4> -->
+      <p><mark>Small Tasks</mark></p>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let taskItem of smallTasks">
+          <app-task [taskItem]="taskItem"></app-task>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

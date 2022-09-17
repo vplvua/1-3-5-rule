@@ -1,0 +1,16 @@
+form {
+  margin-top: 20px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+#warning {
+  color: red;
+}
+
+.main {
+  max-width: 600px;
+  margin: auto;
+}

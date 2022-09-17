@@ -1,0 +1,63 @@
+<div class="container">
+  <nav class="navbar navbar-expand-lg bg-light rounded">
+    <div class="container-fluid">
+      <button
+        class="navbar-toggler"
+        type="button"
+        (click)="collapsed = !collapsed"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand">1-3-5</a>
+      <div
+        class="collapse navbar-collapse justify-content-md-center"
+        id="navbarNavAltMarkup"
+        [class.collapse]="collapsed"
+        (window:resize)="collapsed = true"
+      >
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" style="cursor: pointer" routerLink="/about"
+              >About</a
+            >
+          </li>
+          <li class="nav-item">
+            <a routerLink="/today" class="nav-link" *ngIf="isAuthenticated">
+              Tasks
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              style="cursor: pointer"
+              routerLink="/auth"
+              *ngIf="isAuthenticated"
+              (click)="onLogout()"
+              >Logout</a
+            >
+            <a
+              class="nav-link"
+              style="cursor: pointer"
+              *ngIf="!isAuthenticated"
+              routerLink="/auth"
+              >Login</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>
+</div>
+
+<!-- <div class="container text-center" *ngIf="isFetching">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+<div class="main" *ngIf="!isFetching">
+  <div class="container-sm"></div>
+</div> -->

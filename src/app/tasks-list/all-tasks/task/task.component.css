@@ -1,0 +1,23 @@
+.delete {
+  color: red;
+  border-radius: 50%;
+  background: red;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  width: 20px;
+  height: 20px;
+  transition: 0.3s all;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete:hover {
+  background: darken(red, 20%);
+}
+
+.done {
+  text-decoration-line: line-through;
+}

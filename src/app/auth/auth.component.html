@@ -1,0 +1,70 @@
+<div class="bg-light p-5 rounded">
+  <div class="col-sm-8 mx-auto">
+    <div class="row justify-content-center mt-3">
+      <div class="alert alert-danger" *ngIf="error">
+        <p>{{ error }}</p>
+      </div>
+      <div class="col col-sm max-width">
+        <div class="container text-center" *ngIf="isLoading">
+          <app-loading-spinner></app-loading-spinner>
+        </div>
+        <form
+          #authForm="ngForm"
+          (ngSubmit)="onSubmit(authForm)"
+          *ngIf="!isLoading"
+        >
+          <div class="form-group mt-2">
+            <label for="email">E-Mail</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control form-control-sm"
+              placeholder="test@test.com"
+              ngModel
+              name="email"
+              required
+              email
+            />
+          </div>
+          <div class="form-group mt-2">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              class="form-control form-control-sm"
+              placeholder="123456"
+              ngModel
+              name="password"
+              required
+              minlength="6"
+            />
+          </div>
+          <div class="d-grid gap-2 mt-2">
+            <button
+              class="btn btn-primary btn-sm mt-2"
+              type="submit"
+              [disabled]="!authForm.valid"
+            >
+              {{ isLoginMode ? "Login" : "Sign Up" }}
+            </button>
+            <button
+              class="btn btn btn-link btn-sm mt-2"
+              type="button"
+              (click)="onSwitchMode()"
+            >
+              Switch to {{ isLoginMode ? "Sign Up" : "Login" }}
+            </button>
+          </div>
+        </form>
+        <p>
+          To test the application features you can register or use the
+          credentials:
+        </p>
+        <p>
+          login: test@test.com <br />
+          password: 123456
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

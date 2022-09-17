@@ -1,0 +1,100 @@
+<div class="main">
+  <app-list-menu></app-list-menu>
+  <div class="row">
+    <div class="col-xs-12">
+      <form [formGroup]="editTaskForm" (ngSubmit)="onSubmit()">
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="taskName"
+            formControlName="taskName"
+            aria-describedby="warning"
+          />
+          <label for="taskName">Describe the task</label>
+          <div
+            *ngIf="
+              !editTaskForm.get('taskName').valid &&
+              editTaskForm.get('taskName').touched
+            "
+            id="warning"
+            class="form-text"
+          >
+            * This field is required
+          </div>
+        </div>
+
+        <div class="form-floating mb-3">
+          <textarea
+            class="form-control"
+            id="descr"
+            style="height: 100px"
+            formControlName="taskDescription"
+          ></textarea>
+          <label for="descr">Task details</label>
+        </div>
+
+        <div class="row g-2">
+          <div class="col-md">
+            <div class="form-floating">
+              <select
+                class="form-select"
+                id="group"
+                formControlName="taskPeriod"
+              >
+                <option *ngFor="let group of tasksGroup" [value]="group">
+                  {{ group }}
+                </option>
+              </select>
+              <label for="group">Select a period</label>
+            </div>
+          </div>
+
+          <div class="col-md">
+            <div class="form-floating">
+              <select
+                class="form-select"
+                id="importance"
+                formControlName="taskImportance"
+              >
+                <option
+                  *ngFor="let importance of tasksImportance"
+                  [value]="importance"
+                >
+                  {{ importance }}
+                </option>
+              </select>
+              <label for="importance">Select importance</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="my-3 text-center row">
+          <div class="col-sm-12">
+            <button
+              type="submit"
+              class="btn btn-success mx-3"
+              [disabled]="!editTaskForm.get('taskName').valid"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger mx-3"
+              (click)="onCancel()"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <p class="col-sm-3">Creation date:</p>
+          <div class="col-sm-3">
+            <p>{{ creationDate | date: "dd.MM.yyyy" }}</p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
