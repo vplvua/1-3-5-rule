@@ -14,6 +14,9 @@ export class TasksService {
   }
 
   getTasks() {
+    if (!this.tasks) {
+      this.tasks = [];
+    }
     return this.tasks.slice();
   }
 

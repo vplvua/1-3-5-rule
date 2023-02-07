@@ -32,6 +32,7 @@ export class TasksGroupComponent implements OnInit, OnDestroy {
     );
 
     this.tasks = this.tasksService.getTasks();
+
     this.mainTask = this.tasks.filter(
       (element) =>
         element['taskGroup'].toLowerCase() === this.tasksGroupURL &&

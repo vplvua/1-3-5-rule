@@ -23,7 +23,7 @@ export class TasksListComponent implements OnInit {
       .fetchTasksFromServer()
       .subscribe((tasks: TaskModel[]) => {
         this.isFetching = false;
-        this.tasksService.setTasks(tasks);
+        this.tasksService.setTasks(tasks ? tasks : []);
       });
   }
 }
