@@ -54,4 +54,23 @@ export class TasksService {
     this.tasks[toggleTask].completed = !this.tasks[toggleTask].completed;
     this.tasksChanged.next(this.tasks.slice());
   }
+
+  filterTasksByPeriod(tasks: TaskModel[], period: string) {
+    const mainTask = tasks.filter(
+      (element) =>
+        element['taskGroup'].toLowerCase() === period &&
+        element['taskImportance'] === 'Main'
+    );
+    const importantTasks = tasks.filter(
+      (element) =>
+        element['taskGroup'].toLowerCase() === period &&
+        element['taskImportance'] === 'Important'
+    );
+    const smallTasks = tasks.filter(
+      (element) =>
+        element['taskGroup'].toLowerCase() === period &&
+        element['taskImportance'] === 'Small'
+    );
+    return [mainTask, importantTasks, smallTasks];
+  }
 }

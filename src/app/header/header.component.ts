@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { exhaustMap, Subscription, take } from 'rxjs';
+import { exhaustMap, map, Subscription, take } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { DataStorageService } from '../shared/data-storage.service';
 import { TasksService } from '../shared/tasks.service';
 import { AuthService } from '../auth/auth.service';
+import { TaskModel } from '../shared/task.model';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +17,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isFetching = false;
   private userSub: Subscription;
   isAuthenticated = false;
+  tasksChangedSubscription: Subscription;
+  tasks: TaskModel[];
 
   constructor(
     private dataStorageService: DataStorageService,
@@ -27,18 +30,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSub = this.authService.user.subscribe((user) => {
       this.isAuthenticated = !user ? false : true;
+
+      if (this.isAuthenticated) {
+        this.isFetching = true;
+
+        this.dataStorageService
+          .fetchTasksFromServer()
+          .subscribe((tasks: TaskModel[]) => {
+            this.isFetching = false;
+            this.tasksService.setTasks(tasks ? tasks : []);
+          });
+      }
     });
   }
-
-  // onFetchData() {
-  //   this.isFetching = true;
-  //   this.dataStorageService
-  //     .fetchTasksFromServer()
-  //     .subscribe((tasks: TaskModel[]) => {
-  //       this.isFetching = false;
-  //       this.tasksService.setTasks(tasks);
-  //     });
-  // }
 
   onLogout() {
     this.authService.logout();

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { DataStorageService } from '../shared/data-storage.service';
 import { TasksService } from '../shared/tasks.service';
@@ -9,21 +11,6 @@ import { TaskModel } from '../shared/task.model';
   templateUrl: './tasks-list.component.html',
   styleUrls: ['./tasks-list.component.css'],
 })
-export class TasksListComponent implements OnInit {
-  isFetching = false;
-
-  constructor(
-    private dataStorageService: DataStorageService,
-    private tasksService: TasksService
-  ) {}
-
-  ngOnInit() {
-    this.isFetching = true;
-    this.dataStorageService
-      .fetchTasksFromServer()
-      .subscribe((tasks: TaskModel[]) => {
-        this.isFetching = false;
-        this.tasksService.setTasks(tasks ? tasks : []);
-      });
-  }
+export class TasksListComponent {
+  constructor() {}
 }

@@ -3,11 +3,11 @@ export class User {
     public email: string,
     public id: string,
     private _token: string,
-    private _tokenExpitationDate: Date
+    private _tokenExpirationDate: Date
   ) {}
 
   get token() {
-    if (!this._tokenExpitationDate || new Date() > this._tokenExpitationDate) {
+    if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
       return null;
     }
     return this._token;

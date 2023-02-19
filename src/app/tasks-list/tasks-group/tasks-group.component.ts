@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { TaskModel } from 'src/app/shared/task.model';
@@ -11,46 +11,43 @@ import { TasksService } from '../../shared/tasks.service';
   styleUrls: ['./tasks-group.component.css'],
 })
 export class TasksGroupComponent implements OnInit, OnDestroy {
-  tasksGroupURL: string = this.router.url.slice(1);
+  tasksGroupURL: string = 'today';
   tasks: TaskModel[];
   mainTask = [];
   importantTasks = [];
   smallTasks = [];
   tasksChangedSubscription: Subscription;
+  routeSubscription: Subscription;
 
-  constructor(private router: Router, private tasksService: TasksService) {}
+  constructor(
+    private router: Router,
+    private tasksService: TasksService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    if (this.tasksGroupURL === 'list') {
-      this.router.navigate(['/today']);
-    }
-
     this.tasksChangedSubscription = this.tasksService.tasksChanged.subscribe(
       (tasks: TaskModel[]) => {
         this.tasks = tasks;
+        this.filteringTasksByImportance();
       }
     );
 
     this.tasks = this.tasksService.getTasks();
 
-    this.mainTask = this.tasks.filter(
-      (element) =>
-        element['taskGroup'].toLowerCase() === this.tasksGroupURL &&
-        element['taskImportance'] === 'Main'
-    );
-    this.importantTasks = this.tasks.filter(
-      (element) =>
-        element['taskGroup'].toLowerCase() === this.tasksGroupURL &&
-        element['taskImportance'] === 'Important'
-    );
-    this.smallTasks = this.tasks.filter(
-      (element) =>
-        element['taskGroup'].toLowerCase() === this.tasksGroupURL &&
-        element['taskImportance'] === 'Small'
-    );
+    this.routeSubscription = this.route.url.subscribe((url) => {
+      this.tasksGroupURL = url[0].path;
+      this.filteringTasksByImportance();
+    });
+  }
+
+  private filteringTasksByImportance() {
+    [this.mainTask, this.importantTasks, this.smallTasks] =
+      this.tasksService.filterTasksByPeriod(this.tasks, this.tasksGroupURL);
   }
 
   ngOnDestroy() {
     this.tasksChangedSubscription.unsubscribe();
+    this.routeSubscription.unsubscribe();
   }
 }

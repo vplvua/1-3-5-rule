@@ -8,7 +8,6 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent implements OnInit {
   title = '1-3-5-rule';
-  // isFetching = false;
 
   constructor(private authServise: AuthService) {}
 

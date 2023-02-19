@@ -10,16 +10,15 @@ import { AuthGuard } from './auth/auth.guard';
 import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'list', pathMatch: 'full' },
-  { path: 'auth', component: AuthComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'list', component: TasksListComponent, canActivate: [AuthGuard] },
-  { path: 'today', component: TasksGroupComponent, canActivate: [AuthGuard] },
-  { path: 'week', component: TasksGroupComponent, canActivate: [AuthGuard] },
-  { path: 'month', component: TasksGroupComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'today', pathMatch: 'full' },
+  { path: 'today', component: TasksListComponent, canActivate: [AuthGuard] },
+  { path: 'week', component: TasksListComponent, canActivate: [AuthGuard] },
+  { path: 'month', component: TasksListComponent, canActivate: [AuthGuard] },
   { path: 'edit', component: TaskEditComponent, canActivate: [AuthGuard] },
   { path: 'edit/:id', component: TaskEditComponent, canActivate: [AuthGuard] },
   { path: 'all', component: AllTasksComponent, canActivate: [AuthGuard] },
+  { path: 'auth', component: AuthComponent },
+  { path: 'about', component: AboutComponent },
 ];
 
 @NgModule({
